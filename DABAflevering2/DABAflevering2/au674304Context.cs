@@ -22,6 +22,7 @@ namespace DABAflevering2
         public virtual DbSet<Property> Properties { get; set; } = null!;
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<Society> Societies { get; set; } = null!;
+        public virtual DbSet<Member> Members { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
