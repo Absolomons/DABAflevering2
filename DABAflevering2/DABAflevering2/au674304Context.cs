@@ -28,7 +28,8 @@ namespace DABAflevering2
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=Dab2;User ID=SA;Password=<STRONG6969>; TrustServerCertificate=true");
+                //optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=Dab2;User ID=SA;Password=<STRONG6969>; TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Data Source = localhost; Initial Catalog = DAB22; User ID = SA; Password =< SuperDuperPassword1!1 >; TrustServerCertificate = true");
             }
         }
 
