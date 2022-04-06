@@ -8,51 +8,59 @@ namespace DABAflevering2
         {
             au674304Context dbContext = new au674304Context();
 
-            var municipalityList = dbContext.Municipalities.Include(x => x.Rooms).ToList();
 
             Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +
                 "Enter 2 to get a list of all societies sorted by their activity\n" +
                 "Enter 3 to get a list of all the booked rooms, including the sociery name and chairman");
 
-            var input = Console.ReadLine();            
-
-            switch(input)
+            while (true)
             {
-                case "1":
-                    Console.WriteLine("hey1");
-                    break;
+                var input = Console.ReadLine();
 
-                case "2":
-                    Console.WriteLine("hey2");
-                    break;
+                switch (input)
+                {
+                    case "1":
+                        Municipality(dbContext);
+                        break;
 
-                case "3":
-                    Console.WriteLine("hey3");
-                    break;
+                    case "2":
+                        SocietyActivity(dbContext);
+                        break;
+
+                    case "3":
+                        bookedRooms(dbContext);
+                        break;
+                }
             }
                 
-            
-           
-            //Municipality information with rooms
+        
+        }
+
+        static void Municipality(au674304Context dbContext)
+        {
+            var municipalityList = dbContext.Municipalities.Include(x => x.Rooms).ToList();
+
             foreach (var municipality in municipalityList)
-            { 
+            {
 
                 Console.WriteLine("Municipality with id: " + municipality.MunicipalityId + " has");
 
                 foreach (var Rooms in municipality.Rooms)
                 {
-                    Console.WriteLine("Room with id: " + Rooms.RoomId + " has address "+ Rooms.RoomAddress);
+                    Console.WriteLine("Room with id: " + Rooms.RoomId + " has address " + Rooms.RoomAddress);
                 }
 
                 Console.WriteLine("\n");
             }
 
+        }
+
+        static void SocietyActivity(au674304Context dbContext)
+        {
             var societyList = dbContext.Societies.Include(x => x.Chairmen).ToList();
 
             var societyListSorted = societyList.OrderBy(s => s.Activity);
 
-
-            //Get all societies
             foreach (var society in societyListSorted)
             {
 
@@ -63,31 +71,33 @@ namespace DABAflevering2
                     + society.SocAddress
                     + " and Chairman with name");
 
-                 foreach (var Chairmen in society.Chairmen)
+                foreach (var Chairmen in society.Chairmen)
                 {
-                    Console.WriteLine(Chairmen.ChairmanName );
+                    Console.WriteLine(Chairmen.ChairmanName);
                 }
-      
+
                 Console.WriteLine("\n");
             }
+        }
 
-
+        static void bookedRooms(au674304Context dbContext)
+        {
             var bookingoverviewList = from bookingoverview in dbContext.Set<Bookingoverview>()
-                join room in dbContext.Set<Room>() on bookingoverview.RoomId equals room.RoomId
-                join society in dbContext.Set<Society>() on bookingoverview.Cvr equals society.Cvr
-                join chairman in dbContext.Set<Chairman>() on society.Cvr equals chairman.Cvr
-                select new {bookingoverview, room, society,chairman};
+                                      join room in dbContext.Set<Room>() on bookingoverview.RoomId equals room.RoomId
+                                      join society in dbContext.Set<Society>() on bookingoverview.Cvr equals society.Cvr
+                                      join chairman in dbContext.Set<Chairman>() on society.Cvr equals chairman.Cvr
+                                      select new { bookingoverview, room, society, chairman };
 
             foreach (var booking in bookingoverviewList)
             {
-                Console.WriteLine("Society with activity: " + booking.society.Activity + "" +
-                                  " has cvr "
+              
+                Console.WriteLine("Society has cvr "
                                   + booking.society.Cvr
                                   + " and has chairman "
                                   + booking.chairman.ChairmanName
-                                  + " has booked room with ID\n "
+                                  + " has booked room with ID "
                                   + booking.room.RoomId
-                                  + " on address \n"
+                                  + "\n on address"
                                   + booking.room.RoomAddress
                                   + " from "
                                   + booking.bookingoverview.BookingStart
@@ -96,7 +106,6 @@ namespace DABAflevering2
 
                 Console.WriteLine("\n");
             }
-
         }
 
     }
