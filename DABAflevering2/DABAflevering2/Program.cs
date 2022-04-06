@@ -10,9 +10,31 @@ namespace DABAflevering2
 
             var municipalityList = dbContext.Municipalities.Include(x => x.Rooms).ToList();
 
+            Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +
+                "Enter 2 to get a list of all societies sorted by their activity\n" +
+                "Enter 3 to get a list of all the booked rooms, including the sociery name and chairman");
 
+            var input = Console.ReadLine();            
+
+            switch(input)
+            {
+                case "1":
+                    Console.WriteLine("hey1");
+                    break;
+
+                case "2":
+                    Console.WriteLine("hey2");
+                    break;
+
+                case "3":
+                    Console.WriteLine("hey3");
+                    break;
+            }
+                
+            
+           
             //Municipality information with rooms
-            foreach(var municipality in municipalityList)
+            foreach (var municipality in municipalityList)
             { 
 
                 Console.WriteLine("Municipality with id: " + municipality.MunicipalityId + " has");
