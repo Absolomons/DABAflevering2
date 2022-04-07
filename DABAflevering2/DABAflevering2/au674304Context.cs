@@ -23,6 +23,8 @@ namespace DABAflevering2
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<Society> Societies { get; set; } = null!;
         public virtual DbSet<Member> Members { get; set; } = null!;
+        public virtual DbSet<KeyResponsible> KeyResponsibles { get; set; } = null!;
+        public virtual DbSet<Key> Keys { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,6 +60,12 @@ namespace DABAflevering2
                     .HasForeignKey(d => d.RoomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Bookingov__RoomI__5FBE24CE");
+            });
+
+            modelBuilder.Entity<KeyResponsible>(entity =>
+            {
+                entity.HasKey(e => new { e.CPR, e.MunicipalityID})
+                    .HasName("PK_KeyResponsible");
             });
 
             modelBuilder.Entity<Chairman>(entity =>

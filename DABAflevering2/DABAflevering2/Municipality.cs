@@ -15,5 +15,6 @@ namespace DABAflevering2
 
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual ICollection<Society> Societies { get; set; }
+        public virtual ICollection<KeyResponsible> KeyResponsibles { get; set; }
     }
 }

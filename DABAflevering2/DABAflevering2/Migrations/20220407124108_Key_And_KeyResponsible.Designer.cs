@@ -4,6 +4,7 @@ using DABAflevering2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DABAflevering2.Migrations
 {
     [DbContext(typeof(au674304Context))]
-    partial class au674304ContextModelSnapshot : ModelSnapshot
+    [Migration("20220407124108_Key_And_KeyResponsible")]
+    partial class Key_And_KeyResponsible
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
