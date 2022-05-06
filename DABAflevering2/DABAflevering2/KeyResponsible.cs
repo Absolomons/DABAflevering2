@@ -9,8 +9,8 @@ namespace DABAflevering2
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int CPR { get; set; }
-        public int MunicipalityID { get; set; }
+        public string CPR { get; set; }
+        public string MunicipalityID { get; set; }
         public string HomeAddress { get; set; }
         public int PhoneNumber { get; set; }
         public int Passport { get; set; }

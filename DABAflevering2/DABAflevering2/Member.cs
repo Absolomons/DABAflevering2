@@ -10,12 +10,9 @@ namespace DABAflevering2
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int Cpr { get; set; }
+        public string Cpr { get; set; }
 
         public string? Name { get; set; }
 
-        public int CvrNavigationCvr { get; set; }
-
-        public virtual Society CvrNavigation { get; set; } = null!;
     }
 }

@@ -10,11 +10,11 @@ namespace DABAflevering2
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int keyID { get; set; }
+        public string keyID { get; set; }
 
         public string? keyLocation { get; set; }
 
-        public int RoomID { get; set; }
+        public string RoomID { get; set; }
 
         public virtual Room RoomIdRoom { get; set; } = null!;
     }

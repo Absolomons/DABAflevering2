@@ -5,12 +5,11 @@ using MongoDB.Driver;
 
 namespace DABAflevering2.Services;
 
-public class MunicipalityService
+public class KeyService
 {
-    private readonly IMongoCollection<Municipality> _municipalityCollection;
-    private readonly IMongoCollection<Room> _roomCollection;
+    private readonly IMongoCollection<KeyResponsible> _keyResponsibleCollection;
 
-    public MunicipalityService(
+    public KeyService(
         MunicipalityDatabaseSettings municipalityDatabaseSettings)
     {
         var mongoClient = new MongoClient(
@@ -19,15 +18,12 @@ public class MunicipalityService
         var mongoDatabase = mongoClient.GetDatabase(
             municipalityDatabaseSettings.DatabaseName);
 
-        _municipalityCollection = mongoDatabase.GetCollection<Municipality>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
-
-        _roomCollection = mongoDatabase.GetCollection<Room>(
+        _keyCollection = mongoDatabase.GetCollection<KeyResponsible>(
             municipalityDatabaseSettings.MunicipalityCollectionName);
     }
 
-    public async Task<Municipality> GetAsync(string id) =>
-        await _municipalityCollection.Find(x => x.MunicipalityId == id).FirstOrDefaultAsync();
+    public async Task<KeyResponsible> GetAsync(KeyResponsible keyResponsible) =>
+        await _keyCollection.Find(x => x.CPR == keyResponsible.CPR).FirstOrDefaultAsync();
 
     public async Task<List<Room>> GetAsync(Municipality municipality) =>
         await _roomCollection.Find(x => x.MunicipalityId == municipality.MunicipalityId).ToListAsync();

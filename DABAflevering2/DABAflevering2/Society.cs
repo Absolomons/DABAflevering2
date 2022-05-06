@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace DABAflevering2
@@ -8,7 +10,6 @@ namespace DABAflevering2
         public Society()
         {
             Bookingoverviews = new HashSet<Bookingoverview>();
-            Chairmen = new HashSet<Chairman>();
         }
 
         public int? NumberOfMembers { get; set; }
@@ -16,8 +17,8 @@ namespace DABAflevering2
         public string? Activity { get; set; }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int Cvr { get; set; }
-        public int MunicipalityId { get; set; }
+        public string Cvr { get; set; }
+        public string MunicipalityId { get; set; }
 
         public string? SocAddress { get; set; }
         [BsonElement("Members")]

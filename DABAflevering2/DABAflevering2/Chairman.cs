@@ -11,8 +11,8 @@ namespace DABAflevering2
         public string? ChairmanName { get; set; }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int Cpr { get; set; }
-        public int Cvr { get; set; }
+        public string Cpr { get; set; }
+        public string Cvr { get; set; }
 
     }
 }

@@ -19,6 +19,6 @@ namespace DABAflevering2.Models
 
         public string SocietyCollectionName = "Societies";
 
-        public string BookingOverviewCollectionName = "Bookingoverviews";
+        public string BookingOverviewCollectionName = "BookingOverviews";
     }
 }

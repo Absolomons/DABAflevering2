@@ -9,8 +9,8 @@ namespace DABAflevering2
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int RoomId { get; set; }
-        public int PropertyId { get; set; }
+        public string PropertyId { get; set; }
+        public string RoomId { get; set; }
         public bool? WiFi { get; set; }
         public bool? Whiteboard { get; set; }
         public bool? SoccerGoals { get; set; }

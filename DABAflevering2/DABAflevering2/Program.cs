@@ -13,8 +13,17 @@ namespace DABAflevering2
         {
             MongoClient dbClient = new MongoClient();
 
-            var database = dbClient.GetDatabase("sample_training");
-            var collection = database.GetCollection<BsonDocument>("grades");
+            var database = dbClient.GetDatabase("Municipality");
+            var collectionBookingOverviews = database.GetCollection<BsonDocument>("BookingOverviews");
+            var collectionRooms = database.GetCollection<BsonDocument>("Rooms");
+            var collectionMunicipality = database.GetCollection<BsonDocument>("Municipality");
+            var collectionSocieties = database.GetCollection<BsonDocument>("Societies");
+            
+            
+            //**************Dummy data Rooms***************************//
+            collectionRooms.InsertMany(
+
+                )
 
 
             Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +
@@ -53,17 +62,25 @@ namespace DABAflevering2
             var options = new MunicipalityDatabaseSettings();
             var municipalityService = new MunicipalityService(options);
 
-            int id = 1;
+            string id = "1";
 
             var municipality = municipalityService.GetAsync(id);
-            Console.WriteLine("Municipality with id: " + municipality.Result.MunicipalityId + " has");
 
-            var rooms = municipalityService.GetAsync(municipality.Result);
-
-            foreach (var room in rooms.Result)
+            if (municipality.Result != null)
             {
-                Console.WriteLine("Room with id: " + room.RoomId + " has address " + room.RoomAddress);
+                Console.WriteLine("Municipality with id: " + municipality.Result.MunicipalityId + " has");
+
+                var rooms = municipalityService.GetAsync(municipality.Result);
+
+                foreach (var room in rooms.Result)
+                {
+                    Console.WriteLine("Room with id: " + room.RoomId + " has address " + room.RoomAddress);
+                }
             }
+
+            Console.WriteLine("Det her er vildt");
+
+
         }
 
         static void SocietyActivity()
