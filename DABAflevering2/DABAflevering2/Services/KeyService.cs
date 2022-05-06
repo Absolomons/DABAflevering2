@@ -8,6 +8,8 @@ namespace DABAflevering2.Services;
 public class KeyService
 {
     private readonly IMongoCollection<KeyResponsible> _keyResponsibleCollection;
+    private readonly IMongoCollection<Bookingoverview> _bookingOverviewCollection;
+
 
     public KeyService(
         MunicipalityDatabaseSettings municipalityDatabaseSettings)
@@ -18,13 +20,16 @@ public class KeyService
         var mongoDatabase = mongoClient.GetDatabase(
             municipalityDatabaseSettings.DatabaseName);
 
-        _keyCollection = mongoDatabase.GetCollection<KeyResponsible>(
+        _keyResponsibleCollection = mongoDatabase.GetCollection<KeyResponsible>(
+            municipalityDatabaseSettings.MunicipalityCollectionName);
+
+        _bookingOverviewCollection = mongoDatabase.GetCollection<Bookingoverview>(
             municipalityDatabaseSettings.MunicipalityCollectionName);
     }
 
     public async Task<KeyResponsible> GetAsync(KeyResponsible keyResponsible) =>
-        await _keyCollection.Find(x => x.CPR == keyResponsible.CPR).FirstOrDefaultAsync();
+        await _keyResponsibleCollection.Find(x => x.CPR == keyResponsible.CPR).FirstOrDefaultAsync();
 
-    public async Task<List<Room>> GetAsync(Municipality municipality) =>
-        await _roomCollection.Find(x => x.MunicipalityId == municipality.MunicipalityId).ToListAsync();
+    public async Task<List<Bookingoverview>> GetAsync() =>
+        await _bookingOverviewCollection.Find(x => x.Room.RoomId != null).ToListAsync();
 }

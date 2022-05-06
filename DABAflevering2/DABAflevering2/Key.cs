@@ -13,9 +13,5 @@ namespace DABAflevering2
         public string keyID { get; set; }
 
         public string? keyLocation { get; set; }
-
-        public string RoomID { get; set; }
-
-        public virtual Room RoomIdRoom { get; set; } = null!;
     }
 }
