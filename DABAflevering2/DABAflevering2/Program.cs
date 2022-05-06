@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using MongoDB.Bson;
+using MongoDB.Driver;
+
 namespace DABAflevering2
 {
     public class Program
@@ -7,6 +10,11 @@ namespace DABAflevering2
         public static void Main()
         {
             au674304Context dbContext = new au674304Context();
+
+            MongoClient dbClient = new MongoClient();
+
+            var database = dbClient.GetDatabase("sample_training");
+            var collection = database.GetCollection<BsonDocument>("grades");
 
 
             Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +

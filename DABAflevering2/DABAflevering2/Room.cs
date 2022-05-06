@@ -9,7 +9,8 @@ namespace DABAflevering2
         {
             Bookingoverviews = new HashSet<Bookingoverview>();
         }
-
+        [BsonID
+        ]
         public int RoomId { get; set; }
         public int? Roomlimit { get; set; }
         public DateTime? TimespanStart { get; set; }
