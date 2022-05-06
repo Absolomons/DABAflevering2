@@ -19,7 +19,7 @@ namespace DABAflevering2
 
             Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +
                 "Enter 2 to get a list of all societies sorted by their activity\n" +
-                "Enter 3 to get a list of all the booked rooms, including the sociery name and chairman\n" +
+                "Enter 3 to get a list of all the booked rooms, including the society name and chairman\n" +
                 "Enter 4 to get a list of all key-responsible people\n");
 
             while (true)
@@ -40,7 +40,8 @@ namespace DABAflevering2
                         BookedRooms();
                         break;
                     case "4":
-                        KeyResponsible();
+                        //KeyResponsible();
+                        break;
                 }
             }
                 
