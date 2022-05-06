@@ -9,7 +9,6 @@ namespace DABAflevering2
     {
         public Society()
         {
-            Bookingoverviews = new HashSet<Bookingoverview>();
         }
 
         public int? NumberOfMembers { get; set; }
@@ -18,15 +17,11 @@ namespace DABAflevering2
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Cvr { get; set; }
-        public string MunicipalityId { get; set; }
-
         public string? SocAddress { get; set; }
         [BsonElement("Members")]
         public List<Member> Memberships { get; set; }
         [BsonElement("Municipality")]
         public virtual Municipality Municipality { get; set; } = null!;
-        [BsonElement("BookingOverview")]
-        public virtual ICollection<Bookingoverview> Bookingoverviews { get; set; }
         [BsonElement("Chairmen")]
         public virtual Chairman Chairmen { get; set; }
     }

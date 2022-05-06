@@ -12,7 +12,5 @@ namespace DABAflevering2
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Cpr { get; set; }
-        public string Cvr { get; set; }
-
     }
 }
