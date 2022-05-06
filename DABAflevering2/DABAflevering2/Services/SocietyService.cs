@@ -10,18 +10,18 @@ public class SocietyService
     private readonly IMongoCollection<Society> _societyCollection;
 
     public SocietyService(
-        IOptions<MunicipalityDatabaseSettings> municipalityDatabaseSettings)
+        MunicipalityDatabaseSettings municipalityDatabaseSettings)
     {
         var mongoClient = new MongoClient(
-            municipalityDatabaseSettings.Value.ConnectionString);
+            municipalityDatabaseSettings.ConnectionString);
 
         var mongoDatabase = mongoClient.GetDatabase(
-            municipalityDatabaseSettings.Value.DatabaseName);
+            municipalityDatabaseSettings.DatabaseName);
 
         _societyCollection = mongoDatabase.GetCollection<Society>(
-            municipalityDatabaseSettings.Value.MunicipalityCollectionName);
+            municipalityDatabaseSettings.MunicipalityCollectionName);
     }
 
-    public async Task<Society> GetAsync(string activity) =>
-        await _societyCollection.Find(x => x.Activity == activity).FirstOrDefaultAsync();
+    public async Task<List<Society>> GetAsync() =>
+        await _societyCollection.Find(x => x.Activity != null).ToListAsync();
 }

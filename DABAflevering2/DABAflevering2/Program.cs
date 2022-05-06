@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DABAflevering2.Services;
+using Microsoft.EntityFrameworkCore;
+using DABAflevering2.Models;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -9,8 +11,6 @@ namespace DABAflevering2
     {
         public static void Main()
         {
-            au674304Context dbContext = new au674304Context();
-
             MongoClient dbClient = new MongoClient();
 
             var database = dbClient.GetDatabase("sample_training");
@@ -29,46 +29,52 @@ namespace DABAflevering2
                 switch (input)
                 {
                     case "1":
-                        Municipality(dbContext);
+                        Municipality();
                         break;
 
                     case "2":
-                        SocietyActivity(dbContext);
+                        SocietyActivity();
                         break;
 
                     case "3":
-                        bookedRooms(dbContext);
+                        BookedRooms();
                         break;
+                    case "4":
+                        KeyResponsible();
                 }
             }
                 
         
         }
 
-        static void Municipality(au674304Context dbContext)
+        static void Municipality()
         {
-            var municipalityList = dbContext.Municipalities.Include(x => x.Rooms).ToList();
+            var options = new MunicipalityDatabaseSettings();
+            var municipalityService = new MunicipalityService(options);
 
-            foreach (var municipality in municipalityList)
+            int id = 1;
+
+            var municipality = municipalityService.GetAsync(id);
+            Console.WriteLine("Municipality with id: " + municipality.Result.MunicipalityId + " has");
+
+            var rooms = municipalityService.GetAsync(municipality.Result);
+
+            foreach (var room in rooms.Result)
             {
-
-                Console.WriteLine("Municipality with id: " + municipality.MunicipalityId + " has");
-
-                foreach (var Rooms in municipality.Rooms)
-                {
-                    Console.WriteLine("Room with id: " + Rooms.RoomId + " has address " + Rooms.RoomAddress);
-                }
-
-                Console.WriteLine("\n");
+                Console.WriteLine("Room with id: " + room.RoomId + " has address " + room.RoomAddress);
             }
-
         }
 
-        static void SocietyActivity(au674304Context dbContext)
+        static void SocietyActivity()
         {
-            var societyList = dbContext.Societies.Include(x => x.Chairmen).ToList();
 
-            var societyListSorted = societyList.OrderBy(s => s.Activity);
+            var options = new MunicipalityDatabaseSettings();
+            var societyService = new SocietyService(options);
+
+            var societyList = societyService.GetAsync();
+
+            var societyListSorted = societyList.Result.OrderBy(s => s.Activity);
+
 
             foreach (var society in societyListSorted)
             {
@@ -78,45 +84,42 @@ namespace DABAflevering2
                     + society.Cvr
                     + " and address "
                     + society.SocAddress
-                    + " and Chairman with name");
-
-                foreach (var Chairmen in society.Chairmen)
-                {
-                    Console.WriteLine(Chairmen.ChairmanName);
-                }
+                    + " and Chairman with name "
+                    + society.Chairmen.ChairmanName
+                    + "\n");
 
                 Console.WriteLine("\n");
             }
         }
 
-        static void bookedRooms(au674304Context dbContext)
+        static void BookedRooms()
         {
-            var bookingoverviewList = from bookingoverview in dbContext.Set<Bookingoverview>()
-                                      join room in dbContext.Set<Room>() on bookingoverview.RoomId equals room.RoomId
-                                      join society in dbContext.Set<Society>() on bookingoverview.Cvr equals society.Cvr
-                                      join chairman in dbContext.Set<Chairman>() on society.Cvr equals chairman.Cvr
-                                      select new { bookingoverview, room, society, chairman };
+            var options = new MunicipalityDatabaseSettings();
+            var bookedRoomsService = new BookedRoomsService(options);
 
-            foreach (var booking in bookingoverviewList)
+            var bookedRooms = bookedRoomsService.GetAsync();
+
+
+
+            foreach (var booking in bookedRooms.Result)
             {
               
                 Console.WriteLine("Society has cvr "
-                                  + booking.society.Cvr
+                                  + booking.SocietyCvr
                                   + " and has chairman "
-                                  + booking.chairman.ChairmanName
+                                  + booking.ChairmanName
                                   + " has booked room with ID "
-                                  + booking.room.RoomId
+                                  + booking.RoomId
                                   + "\n on address"
-                                  + booking.room.RoomAddress
+                                  + booking.Room.RoomAddress
                                   + " from "
-                                  + booking.bookingoverview.BookingStart
+                                  + booking.BookingStart
                                   + " to "
-                                  + booking.bookingoverview.BookingEnd);
+                                  + booking.BookingEnd);
 
                 Console.WriteLine("\n");
             }
         }
-
     }
 }
 

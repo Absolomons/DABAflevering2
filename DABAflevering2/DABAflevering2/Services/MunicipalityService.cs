@@ -11,19 +11,19 @@ public class MunicipalityService
     private readonly IMongoCollection<Room> _roomCollection;
 
     public MunicipalityService(
-        IOptions<MunicipalityDatabaseSettings> municipalityDatabaseSettings)
+        MunicipalityDatabaseSettings municipalityDatabaseSettings)
     {
         var mongoClient = new MongoClient(
-            municipalityDatabaseSettings.Value.ConnectionString);
+            municipalityDatabaseSettings.ConnectionString);
 
         var mongoDatabase = mongoClient.GetDatabase(
-            municipalityDatabaseSettings.Value.DatabaseName);
+            municipalityDatabaseSettings.DatabaseName);
 
         _municipalityCollection = mongoDatabase.GetCollection<Municipality>(
-            municipalityDatabaseSettings.Value.MunicipalityCollectionName);
+            municipalityDatabaseSettings.MunicipalityCollectionName);
 
         _roomCollection = mongoDatabase.GetCollection<Room>(
-            municipalityDatabaseSettings.Value.MunicipalityCollectionName);
+            municipalityDatabaseSettings.MunicipalityCollectionName);
     }
 
     public async Task<Municipality> GetAsync(int id) =>

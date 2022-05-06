@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DABAflevering2
 {
     public partial class KeyResponsible
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public int CPR { get; set; }
         public int MunicipalityID { get; set; }
         public string HomeAddress { get; set; }

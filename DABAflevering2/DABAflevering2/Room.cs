@@ -22,6 +22,8 @@ namespace DABAflevering2
         public int? AccessCode { get; set; }
         [BsonElement("KeyResponsible")]
         public virtual Key key { get; set; }
+        [BsonElement("Municipality")]
+        public virtual Municipality Municipality { get; set; } = null!;
         [BsonElement("Property")]
         public virtual Property Property { get; set; } = null!;
 
