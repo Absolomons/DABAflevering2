@@ -15,10 +15,12 @@ namespace DABAflevering2.Models
 
         public string MunicipalityCollectionName ="Municipality";
 
-        public string RoomCollectionName = "Rooms";
+        public string RoomCollectionName = "Room";
 
         public string SocietyCollectionName = "Societies";
 
         public string BookingOverviewCollectionName = "BookingOverviews";
+
+        public string KeyResponsibleCollectionName = "KeyResponsible";
     }
 }

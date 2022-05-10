@@ -7,10 +7,11 @@ namespace DABAflevering2
 {
     public partial class Chairman
     {
-        public string? HomeAddress { get; set; }
-        public string? ChairmanName { get; set; }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        public string ChairmanId { get; set; }
+        public string? HomeAddress { get; set; }
+        public string? ChairmanName { get; set; }
         public string Cpr { get; set; }
     }
 }

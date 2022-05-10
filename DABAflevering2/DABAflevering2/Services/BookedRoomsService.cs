@@ -19,7 +19,7 @@ public class BookedRoomsService
             municipalityDatabaseSettings.DatabaseName);
 
         _bookingOverviewCollection = mongoDatabase.GetCollection<Bookingoverview>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
+            municipalityDatabaseSettings.BookingOverviewCollectionName);
     }
 
     public async Task<List<Bookingoverview>> GetAsync() =>

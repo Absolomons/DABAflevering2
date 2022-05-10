@@ -11,184 +11,176 @@ namespace DABAflevering2
     {
         public static void Main()
         {
-            
+
             MongoClient dbClient = new MongoClient();
 
             var database = dbClient.GetDatabase("Municipality");
-            var collectionBookingOverviews = database.GetCollection<BsonDocument>("BookingOverviews");
-            var collectionRooms = database.GetCollection<BsonDocument>("Rooms");
-            var collectionMunicipality = database.GetCollection<BsonDocument>("Municipality");
-            var collectionSocieties = database.GetCollection<BsonDocument>("Societies");
+            var collectionBookingOverviews = database.GetCollection<Bookingoverview>("BookingOverviews");
+            var collectionRooms = database.GetCollection<Room>("Room");
+            var collectionMunicipality = database.GetCollection<Municipality>("Municipality");
+            var collectionSocieties = database.GetCollection<Society>("Societies");
 
-            if (collectionRooms == null) //Ikke sikker på at det her er en god løsning.
-            {
-                
-                //****************Municipality**************//
-                var mun1 = new BsonDocument
-                {
-                    {"MunicipalityId", "1" },
-                };
+            //****************Municipality**************//
 
-                var mun2 = new BsonDocument
-                {
-                    {"MunicipalityId", "2" },
-                };
+        //    var mun1 = new Municipality
+        //    {
+        //        Name = "Randers"
+        //};
 
-                collectionMunicipality.InsertOne(mun1);
-
-                collectionMunicipality.InsertOne(mun2);
+        //    var mun2 = new Municipality
+        //    {
+        //        Name = "Horsens"
+        //    };
 
 
-                //********************Key************************//
-                var key1 = new BsonDocument
-                {
-                    { "keyId","1"},
-                    { "keyLocation","Ceresbyen 5"}
-                };
+        //     collectionMunicipality.InsertOne(mun1);
 
-                var key2 = new BsonDocument
-                {
-                    { "keyId","2"},
-                    { "keyLocation","Finlandsgade 32"}
-                };
-
-                //********************Property************************//
-                var prop1 = new BsonDocument
-                {
-                    {"PropertyId","1"},
-                    {"WiFi","true"},
-                    {"Whiteboard","true"},
-                    {"SoccerGoals","true"},
-                    {"Coffee","true"}
-                };
-
-                var prop2 = new BsonDocument
-                {
-                    {"PropertyId","2"},
-                    {"WiFi","false"},
-                    {"Whiteboard","true"},
-                    {"SoccerGoals","true"},
-                    {"Coffee","true"}
-                };
-
-                //********************Rooms***************************//
-                var room1 = new BsonDocument
-                {
-                    { "Roomlimit","10" },
-                    { "TimespanStart", "2022, 3, 15"} ,
-                    { "TimespanEnd", "2022, 3, 20" },
-                    { "RoomAddress","Finlandsgade 12" },
-                    { "AccessCode", 1234 },
-                };
-
-                room1.Add(mun1);
-                room1.Add(key1);
-                room1.Add(prop1);
-
-                var room2 = new BsonDocument
-                {
-                    { "Roomlimit","20" },
-                    { "TimespanStart", "2024, 7, 11"} ,
-                    { "TimespanEnd", "2025, 6, 25" },
-                    { "RoomAddress","Jægersgade 3" },
-                    { "AccessCode", 4321 }
-                };
-
-                room2.Add(mun1);
-                room2.Add(key2);
-                room2.Add(prop2);
-
-                collectionRooms.InsertOne(room1);
-                collectionRooms.InsertOne(room2);
+        //     collectionMunicipality.InsertOne(mun2);
 
 
-                //********************Chairmen***************************//
-                var chair1 = new BsonDocument
-                {
-                    { "HomeAddress","Jyllandvej" },
-                    { "ChairmanName", "Jens Jensen"} ,
-                    { "Cpr", "5645" },
-                };
+        //    //********************Key************************//
+        //    var key1 = new Key
+        //        {
+        //            keyId = "1",
+        //            keyLocation = "Ceresbyen 5"
+        //        };
 
-                var chair2 = new BsonDocument
-                {
-                    { "HomeAddress","Sjællandvej" },
-                    { "ChairmanName", "Chris Hansen"} ,
-                    { "Cpr", "5795" },
-                };
+        //    var key2 = new Key
+        //    {
+        //        keyId = "2",
+        //        keyLocation = "Finlandsgade 32"
+        //    };
 
-                //********************Members***************************//
-                var mem1 = new BsonDocument
-                {
-                    { "Name", "Jorge"} ,
-                    { "Cpr", "5426" },
-                };
-                var mem2 = new BsonDocument
-                {
-                    { "Name", "Graig"} ,
-                    { "Cpr", "1342" },
-                };
+        //    //********************Rooms***************************//
+        //    var room1 = new Room
+        //    {
+        //        Roomlimit = 20,
+        //        TimespanStart = DateTime.Now,
+        //        TimespanEnd = DateTime.Now,
+        //        RoomAddress = "Finlandsgade 12",
+        //        AccessCode = 4321,
+        //        Municipality = mun1,
+        //        key = key1,
+        //        Property = new Property
+        //        {
+        //            WiFi = true,
+        //            Whiteboard = true,
+        //            SoccerGoals = false,
+        //            Coffee = true
+        //        }
+        //    };
 
-                //********************Societies***************************//
-                var soci1 = new BsonDocument
-                {
-                    { "NumberOfMembers","3" },
-                    { "Name", "ChessSociety"} ,
-                    { "Activity", "Chess" },
-                    { "CVR","1234" },
-                    { "SocAddress", "Strandvejen 1"}
-                };
-                soci1.Add(mun1);
-                soci1.Add(chair1);
-                soci1.Add(mem1);
+        //    var room2 = new Room
+        //    {
+        //        Roomlimit = 20,
+        //        TimespanStart = DateTime.Now,
+        //        TimespanEnd = DateTime.Now,
+        //        RoomAddress = "Jægersgade 3",
+        //        AccessCode = 4321,
+        //        Municipality = mun1,
+        //        key = key2,
+        //        Property = new Property
+        //        {
+        //            WiFi= false,
+        //            Whiteboard = true,
+        //            SoccerGoals = true,
+        //            Coffee = true 
+        //        }
+        //    };
+        //       collectionRooms.InsertOne(room1);
 
+        //       collectionRooms.InsertOne(room2);
 
-                var soci2 = new BsonDocument
-                {
-                    { "NumberOfMembers","30" },
-                    { "Name", "FUT"} ,
-                    { "Activity", "Drinking" },
-                    { "CVR","3333" },
-                    { "SocAddress", "Katrines Kælder?"}
-                };
-                soci2.Add(mun2);
-                soci2.Add(chair2);
-                soci2.Add(mem2);
+        //   // ********************Chairmen * **************************//
+        //   var chair1 = new Chairman
+        //    {
+        //            HomeAddress = "Jyllandvej",
+        //            ChairmanName = "Jens Jensen",
+        //            Cpr = "5645"
+        //    };
 
-                collectionSocieties.InsertOne(soci1);
-                collectionSocieties.InsertOne(soci2);
+        //    var chair2 = new Chairman
+        //        {
+        //            HomeAddress = "Sjællandsvej",
+        //            ChairmanName = "Chris Hansen",
+        //            Cpr = "5795"
+        //        };
 
-                //********************Bookings***************************//
-                var book1 = new BsonDocument
-                {
-                    { "SocietyCvr","1234" },
-                    { "SocietyName", "ChessSociety"} ,
-                    { "ChairmanName", "Jens Jensen" },
-                    { "BookingStart","2022, 3, 16" },
-                    { "BookingEnd","2022, 3, 18" }
-                };
-                book1.Add(room1);
+        //    // //********************Members***************************//
+        //    var mem1 = new Member
+        //     {
+        //        Name= "Jorge",
+        //        Cpr = "5426"
+        //     };
+        //    var mem2 = new Member
+        //     {
+        //         Name = "Graig" ,
+        //         Cpr = "1342"
+        //     };
 
-                var book2 = new BsonDocument
-                {
-                    { "SocietyCvr","4321" },
-                    { "SocietyName", "FUT"} ,
-                    { "ChairmanName", "Chris Hansen" },
-                    { "BookingStart","2024, 12, 16" },
-                    { "BookingEnd","2025, 1, 1" }
-                };
-                book2.Add(room2);
+        //    // //********************Societies***************************//
+        //    var soci1 = new Society
+        //    {
+        //        NumberOfMembers = 3,
+        //        Name = "Chess Society",
+        //        Activity = "Chess",
+        //        Cvr = "1234",
+        //        SocAddress = "Strandvejen 1",
+        //        Municipality = mun1,
+        //        Chairmen = chair1,
+        //        keyResponsible = new KeyResponsible
+        //        {
+        //            CPR = chair1.Cpr,
+        //            HomeAddress = chair1.HomeAddress,
+        //            PhoneNumber = 56737282,
+        //            Passport = 75757575
+        //        }
+        //    };
 
-                collectionBookingOverviews.InsertOne(book1);
-                collectionBookingOverviews.InsertOne(book2);
+        //    //Hvordan tilføjer jeg members
+        //    var soci2 = new Society{ 
+        //        NumberOfMembers = 30,
+        //        Name = "FUT",
+        //        Activity = "Drinking",
+        //        Cvr = "4321",
+        //        SocAddress = "Katrines kældes",
+        //        Municipality = mun1,
+        //        Chairmen = chair2
+        //      };
 
+        //    collectionSocieties.InsertOne(soci1);
+        //    collectionSocieties.InsertOne(soci2);
 
-            }
+        //    //********************Bookings***************************//
+        //    var book1 = new Bookingoverview
+        //     {
+        //        SocietyCvr = "1234",
+        //        SocietyName = "ChessSociety",
+        //        ChairmanName = "Jens Jensen",
+        //        BookingStart = DateTime.Now,
+        //        BookingEnd = DateTime.Now,
+        //        Room =room1
+        //     };
+
+        //    var book2 = new Bookingoverview
+        //     {
+        //        SocietyCvr = "4321",
+        //        SocietyName = "FUT",
+        //        ChairmanName = "Cheis Hansen",
+        //        BookingStart = DateTime.Now,
+        //        BookingEnd = DateTime.Now,
+        //        Room = room2
+
+        //     };
+
+        //    collectionBookingOverviews.InsertOne(book1);
+        //    collectionBookingOverviews.InsertOne(book2);
+
 
             Console.WriteLine("Enter 1 to get a list of alle Municipality information\n " +
                               "Enter 2 to get a list of all societies sorted by their activity\n" +
-                              "Enter 3 to get a list of all the booked rooms, including the society name and chairman\n" +
-                              "Enter 4 to get a list of all key-responsible people\n");
+                              "Enter 3 to get a list of all booked rooms, including the society name and chairman\n" +
+                              "Enter 4 to get a list of alle future bookings for a key responsible\n");
 
             while (true)
             {
@@ -221,13 +213,13 @@ namespace DABAflevering2
             var options = new MunicipalityDatabaseSettings();
             var municipalityService = new MunicipalityService(options);
 
-            string id = "1";
+            string id = "Randers";
 
             var municipality = municipalityService.GetAsync(id);
 
             if (municipality.Result != null)
             {
-                Console.WriteLine("Municipality with id: " + municipality.Result.MunicipalityId + " has");
+                Console.WriteLine("Municipality with name " + municipality.Result.Name +" has ");
 
                 var rooms = municipalityService.GetAsync(municipality.Result);
 
@@ -235,9 +227,12 @@ namespace DABAflevering2
                 {
                     Console.WriteLine("Room with id: " + room.RoomId + " has address " + room.RoomAddress);
                 }
+                Console.WriteLine("\n");
+           }
+            else
+            {
+                Console.WriteLine("Ingen municipalities fundet");
             }
-
-            Console.WriteLine("Det her er vildt");
 
 
         }
@@ -250,21 +245,26 @@ namespace DABAflevering2
 
             var societyList = societyService.GetAsync();
 
-            var societyListSorted = societyList.Result.OrderBy(s => s.Activity);
-
-
-            foreach (var society in societyListSorted)
+            if(societyList.Result == null)
             {
+                Console.WriteLine("Der er ingen societies");
+            }
+            else
+            {
+                var societyListSorted = societyList.Result.OrderBy(s => s.Activity);
 
-                Console.WriteLine("Society with activity: " + society.Activity + "" +
-                    " has cvr "
-                    + society.Cvr
-                    + " and address "
-                    + society.SocAddress
-                    + " and Chairman with name "
-                    + society.Chairmen.ChairmanName
-                    + "\n");
 
+                foreach (var society in societyListSorted)
+                {
+
+                    Console.WriteLine("Society with activity: " + society.Activity + "" +
+                        " has cvr "
+                        + society.Cvr
+                        + " and address "
+                        + society.SocAddress
+                        + " and Chairman with name "
+                        + society.Chairmen.ChairmanName);
+                }
                 Console.WriteLine("\n");
             }
         }
@@ -276,8 +276,6 @@ namespace DABAflevering2
 
             var bookedRooms = bookedRoomsService.GetAsync();
 
-
-
             foreach (var booking in bookedRooms.Result)
             {
 
@@ -287,7 +285,7 @@ namespace DABAflevering2
                                   + booking.ChairmanName
                                   + " has booked room with ID "
                                   + booking.Room.RoomId
-                                  + "\n on address"
+                                  + "\n on address "
                                   + booking.Room.RoomAddress
                                   + " from "
                                   + booking.BookingStart
@@ -303,19 +301,24 @@ namespace DABAflevering2
             var options = new MunicipalityDatabaseSettings();
             var keyService = new KeyService(options);
 
-            var keyResponsible = new KeyResponsible();
-            keyResponsible.CPR = "1234";
+            string CPR = "5645";
 
-            if (keyService.GetAsync(keyResponsible).Result !=null)
+            var society = keyService.GetAsync(CPR); 
+
+            var bookings = keyService.GetAsync(society.Result);
+
+            if (keyService.GetAsync(CPR).Result !=null)
             {
-                var bookedRooms = keyService.GetAsync();
+                Console.WriteLine("Keyresponsible with CPR "
+                                      + CPR
+                                      + " belongs to society "
+                                      + society.Result.Name
+                                      + ".\n\n Here is list of bookings\n");
 
-                foreach (var booking in bookedRooms.Result)
+                foreach (var booking in bookings.Result)
                 {
 
-                    Console.WriteLine("Booked room with ID "
-                                      + booking.Room.RoomId
-                                      + " on address"
+                    Console.WriteLine("Booked room on address "
                                       + booking.Room.RoomAddress
                                       + " is booked from "
                                       + booking.BookingStart
@@ -329,6 +332,8 @@ namespace DABAflevering2
                     Console.WriteLine("\n");
                 }
             }
+            else
+            Console.WriteLine("Der er ingen keyResponsibles");
         }
     }
 }

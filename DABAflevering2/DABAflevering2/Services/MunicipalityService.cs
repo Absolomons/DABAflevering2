@@ -19,16 +19,16 @@ public class MunicipalityService
         var mongoDatabase = mongoClient.GetDatabase(
             municipalityDatabaseSettings.DatabaseName);
 
-        _municipalityCollection = mongoDatabase.GetCollection<Municipality>(
+         _municipalityCollection = mongoDatabase.GetCollection<Municipality>(
             municipalityDatabaseSettings.MunicipalityCollectionName);
 
         _roomCollection = mongoDatabase.GetCollection<Room>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
+            municipalityDatabaseSettings.RoomCollectionName);
     }
 
-    public async Task<Municipality> GetAsync(string id) =>
-        await _municipalityCollection.Find(x => x.MunicipalityId == id).FirstOrDefaultAsync();
+    public async Task<Municipality> GetAsync(string name) =>
+        await _municipalityCollection.Find(x => x.Name == name).FirstOrDefaultAsync();
 
     public async Task<List<Room>> GetAsync(Municipality municipality) =>
-        await _roomCollection.Find(x => x.MunicipalityId == municipality.MunicipalityId).ToListAsync();
+        await _roomCollection.Find(x => x.Municipality.Name == municipality.Name).ToListAsync();
 }

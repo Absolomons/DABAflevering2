@@ -9,6 +9,7 @@ namespace DABAflevering2
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)] 
+        public string bookingId { get; set; }
         public string SocietyCvr { get; set; }
         public string SocietyName { get; set; }
         public string ChairmanName { get; set; }

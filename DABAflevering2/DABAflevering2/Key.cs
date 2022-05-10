@@ -8,9 +8,7 @@ namespace DABAflevering2
 {
     public partial class Key
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string keyID { get; set; }
+        public string keyId { get; set; }
 
         public string? keyLocation { get; set; }
     }

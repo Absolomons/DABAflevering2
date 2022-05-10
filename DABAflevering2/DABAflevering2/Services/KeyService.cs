@@ -7,8 +7,9 @@ namespace DABAflevering2.Services;
 
 public class KeyService
 {
-    private readonly IMongoCollection<KeyResponsible> _keyResponsibleCollection;
     private readonly IMongoCollection<Bookingoverview> _bookingOverviewCollection;
+    private readonly IMongoCollection<Society> _societyCollection;
+    private readonly IMongoCollection<Municipality> _municipalityCollection;
 
 
     public KeyService(
@@ -20,16 +21,16 @@ public class KeyService
         var mongoDatabase = mongoClient.GetDatabase(
             municipalityDatabaseSettings.DatabaseName);
 
-        _keyResponsibleCollection = mongoDatabase.GetCollection<KeyResponsible>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
-
         _bookingOverviewCollection = mongoDatabase.GetCollection<Bookingoverview>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
+            municipalityDatabaseSettings.BookingOverviewCollectionName);
+
+        _societyCollection = mongoDatabase.GetCollection<Society>(
+           municipalityDatabaseSettings.SocietyCollectionName);
     }
 
-    public async Task<KeyResponsible> GetAsync(KeyResponsible keyResponsible) =>
-        await _keyResponsibleCollection.Find(x => x.CPR == keyResponsible.CPR).FirstOrDefaultAsync();
+    public async Task<Society> GetAsync(string CPR) =>
+    await _societyCollection.Find(x => x.keyResponsible.CPR == CPR).FirstOrDefaultAsync();
 
-    public async Task<List<Bookingoverview>> GetAsync() =>
-        await _bookingOverviewCollection.Find(x => x.Room.RoomId != null).ToListAsync();
+    public async Task<List<Bookingoverview>> GetAsync(Society society) =>
+        await _bookingOverviewCollection.Find(x => x.SocietyCvr == society.Cvr).ToListAsync();
 }

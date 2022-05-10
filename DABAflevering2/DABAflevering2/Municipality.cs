@@ -8,6 +8,8 @@ namespace DABAflevering2
     public class Municipality
     {
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string MunicipalityId { get; set; }
+        public string Name{ get; set; }
     }
 }

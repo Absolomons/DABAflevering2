@@ -19,7 +19,7 @@ public class SocietyService
             municipalityDatabaseSettings.DatabaseName);
 
         _societyCollection = mongoDatabase.GetCollection<Society>(
-            municipalityDatabaseSettings.MunicipalityCollectionName);
+            municipalityDatabaseSettings.SocietyCollectionName);
     }
 
     public async Task<List<Society>> GetAsync() =>
